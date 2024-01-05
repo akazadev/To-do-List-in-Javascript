@@ -1,7 +1,6 @@
-const addButton = document.getElementById("add");
-const taskInput = document.getElementById("add-element");
-const bigParent = document.getElementById("big-contain");
-const tag = document.getElementById("tag");
+import { addButton, taskInput, bigParent } from "./getElementsFromHTML";
+
+
 // Fonction qui permet de supprimer un élément de la liste
 const deleteTodoItem = (toRemove) => {
     const parentSuppression = toRemove.parentNode;
@@ -68,11 +67,10 @@ const addNewElement = (userTask) => {
 // Ajout d'un évènement au clic sur le bouton "Add"
 addButton.addEventListener("click", () => {
     // Si le champ est vide, on affiche une alerte
-    if (taskInput.value.length > 0 && tag.value.length > 0) {
+    if (taskInput.value.length > 0) {
         // Sinon, on ajoute l'élément à la liste
         addNewElement(taskInput.value);
         taskInput.value = "";
-    
     } else {
         alert("Veuillez remplir tous les champs");
     }
