@@ -1,5 +1,7 @@
-import { addButton, taskInput, bigParent } from "./getElementsFromHTML";
-
+const addButton = document.getElementById("add");
+const taskInput = document.getElementById("add-element");
+const bigParent = document.getElementById("big-contain");
+const taskContainer = [];
 
 // Fonction qui permet de supprimer un élément de la liste
 const deleteTodoItem = (toRemove) => {
@@ -8,7 +10,7 @@ const deleteTodoItem = (toRemove) => {
 };
 
 // Fonction qui permet d'ajouter un élément à la liste
-const addNewElement = (userTask) => {
+const addNewElement = (userTask, tag) => {
     bigParent.className = "big-container";
 
     // Création de la div qui contiendra l'élément à ajouter
@@ -37,7 +39,6 @@ const addNewElement = (userTask) => {
     const doneButton = document.createElement("button");
     doneButton.id = "done";
     doneButton.innerText = "Done";
-    
 
     // Ajout des boutons à la div checkDelete
     checkDelete.appendChild(deleteButton);
@@ -48,6 +49,7 @@ const addNewElement = (userTask) => {
 
     // Ajout de la div checkDelete à la div toDoElement
     toDoElement.appendChild(checkDelete);
+
     // Ajout de la div toDoElement à la div todoItem
     todoItem.appendChild(toDoElement);
 
@@ -62,6 +64,9 @@ const addNewElement = (userTask) => {
         doneButton.style.color = "black";
         toDoElement.style.backgroundColor = "rgb(179,255,181)";
     });
+
+    // Ajout de l'objet à taskContainer
+    taskContainer.push(createObject(userTask, tag));
 };
 
 // Ajout d'un évènement au clic sur le bouton "Add"
@@ -69,10 +74,27 @@ addButton.addEventListener("click", () => {
     // Si le champ est vide, on affiche une alerte
     if (taskInput.value.length > 0) {
         // Sinon, on ajoute l'élément à la liste
-        addNewElement(taskInput.value);
+        const tag = prompt("Entrez une catégorie pour votre tâche");
+        addNewElement(taskInput.value, tag);
         taskInput.value = "";
+        afficherContenuTaskContainer();
     } else {
         alert("Veuillez remplir tous les champs");
+    }
+});
+
+// Entrez les tâches avec la touche "Entrée"
+taskInput.addEventListener("keyup", (e) => {
+    if (e.keyCode === 13) {
+        if (taskInput.value.length > 0) {
+            // Demander la catégorie de la tâche
+            const tag = prompt("Entrez une catégorie pour votre tâche");
+            addNewElement(taskInput.value, tag);
+            taskInput.value = "";
+            
+        } else {
+            alert("Veuillez entrer une tâche");
+        }
     }
 });
 
@@ -83,28 +105,17 @@ bigParent.addEventListener("click", (e) => {
         const todoItemToDelete = targetButton.closest(".todo-item");
         deleteTodoItem(todoItemToDelete);
     }
-    
 });
 
+// Fonction pour créer un objet
+function createObject(taskDescription, tag) {
+    return {
+        taskDescription: taskDescription,
+        tag: tag
+    };
+}
 
-//Entrez les ta^ches avec la touche "Entrée"
-taskInput.addEventListener("keyup", (e) => {
-    if (e.keyCode === 13) {
-        if (taskInput.value.length > 0) {
-            addNewElement(taskInput.value);
-            taskInput.value = "";
-        } else {
-            alert("Veuillez entrer une tâche");
-        }
-    }
-});
-
-//store in local storage
-const storeInLocalStorage = () => {
-    localStorage.setItem("todoList", bigParent.innerHTML);
-};
-
-//get from local storage
+// Restaurer depuis le stockage local
 const getFromLocalStorage = () => {
     const saved = localStorage.getItem("todoList");
     if (saved) {
@@ -112,5 +123,16 @@ const getFromLocalStorage = () => {
     }
 };
 
+// Stocker dans le stockage local
+const storeInLocalStorage = () => {
+    localStorage.setItem("todoList", bigParent.innerHTML);
+};
 
+// Appeler la fonction pour restaurer depuis le stockage local
+getFromLocalStorage();
 
+const afficherContenuTaskContainer = () => {
+    taskContainer.forEach((taskObject, index) => {
+        console.log(`Tâche ${index + 1}:`, taskObject.taskDescription, "| Catégorie:", taskObject.tag);
+    });
+};
