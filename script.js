@@ -8,10 +8,7 @@ let taskContainer = [];
 
 var storedTask = JSON.parse(localStorage.getItem('todoList'));
 
-
-
 // Ajout d'un évènement au clic sur le bouton "Add"
-
 //(on ajoute un écouteur d'évènement au bouton ajouter pour qu'il puisse créer les objets de tâche dès qu'on lui clique dessus)
 addButton.addEventListener("click", callAdd);
 
@@ -22,15 +19,12 @@ function callAdd() {
     if (taskText.length > 0) {
         // Sinon, on ajoute l'élément à la liste
         const tag = prompt("Entrez une catégorie pour votre tâche");
-
         if (tag === null || tag === "") {
             alert("Veuillez entrer une catégorie");
             return;
         }
-
-        addNewElement(taskText, tag); // Assurez-vous que addNewElement est correctement défini
-        taskText = ""; // Affectez la valeur à taskText au lieu de task
-        // afficherContenuTaskContainer(); // Décommentez si nécessaire
+        addNewElement(taskText, tag);
+        taskText = ""; 
     } else {
         alert("Veuillez saisir une tâche");
     }
@@ -38,16 +32,14 @@ function callAdd() {
 
 
 // Fonction pour créer un objet
-    //cette fonction prends en paramètre la description du task et le tag qui lui est associé et crée un objet
+//cette fonction prends en paramètre la description du task et le tag qui lui est associé et crée un objet
 function createObject(taskDescription, taskTag) {
-
     taskDescription = taskInput.value;
     return{
         taskDescription: taskDescription,
         tag: taskTag,
     }
 }
-
 
 searchTagButton.addEventListener("click", ()=>{
     if (taskInput.value.length > 0){
@@ -62,16 +54,14 @@ searchTagButton.addEventListener("click", ()=>{
 // Fonction qui permet de supprimer un élément de la liste
 const deleteTodoItem = (toRemove) => {
     const parentSuppression = toRemove.parentNode;
+    // Récupérer l'index de l'élément à supprimer
     const taskIndex = Array.from(parentSuppression.children).indexOf(toRemove);
-
     // Supprimer l'élément du tableau taskContainer
     taskContainer.splice(taskIndex, 1);
-
     // Supprimer l'élément du DOM
     parentSuppression.removeChild(toRemove);
-
     // Mettre à jour le localStorage
-    storeInLocalStorage();
+    removeFromLocalStorage();
 };
 
 // Fonction qui permet d'ajouter un élément à la liste cet élément prends en paramètres le texte de la tâche entrée par l'utilisateur et en fonction de ces deux paramètres un objet taskObject sera créé
@@ -143,7 +133,6 @@ const addNewElement = (taskDescription, tag) => {
 
     // Ajout de l'objet à taskContainer
     taskContainer.push(createObject(taskInput.value, tag));
-    taskInput.value = "";
     //donc ici on appelle la fonction store in localStorage pour sauvegarder le tout nouvel élément que l'on vient de créer
     storeInLocalStorage();
 };
@@ -156,7 +145,7 @@ bigParent.addEventListener("click", (e) => {
     if (targetButton.tagName === "BUTTON" && targetButton.id === "delete") {
         const todoItemToDelete = targetButton.closest(".todo-item");
         deleteTodoItem(todoItemToDelete);
-        
+        removeFromLocalStorage();
     }
 
     //on récupère le target du clic et on vérifie que c'est bien un boutton. Ensuite si ce boutton a un id qui se nomme add alors on appelle la fonction addNewElement
