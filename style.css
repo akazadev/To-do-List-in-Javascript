@@ -44,8 +44,23 @@ body .big-container .add-new-element{
     border-bottom-right-radius: 10px;
 }
 
-body .big-container .add-new-element label button{
+body .big-container .add-new-element label{
+    display: flex;
+}
+
+body .big-container .add-new-element label #add{
     background-color: rgba(255, 60, 60, 0.84);
+    border: none;
+    padding: .5vw .8vw;
+    cursor: pointer;
+    text-transform: uppercase;
+    color: white;
+    font-weight: bold;
+    height: 100%;
+}
+
+body .big-container .add-new-element #search{
+    background-color: rgba(27, 6, 184, 0.84);
     border: none;
     padding: .5vw .8vw;
     cursor: pointer;
@@ -54,7 +69,10 @@ body .big-container .add-new-element label button{
     color: white;
     font-weight: bold;
     height: 100%;
+
 }
+
+
 
 #rechercher{
     background: url("./imgs/research.svg") no-repeat left top;
@@ -75,9 +93,7 @@ body .big-container .add-new-element label button{
     outline: none; /* Utilisez la couleur que vous préférez */
 }
 
-#tag{
-    outline: none;
-}
+
 
 
 body .big-container .title p{
@@ -145,6 +161,28 @@ body .big-container .todo-item .to-do-element .check-delete{
     width: 25%;
     padding: .5vw .9vw;
 }
+
+body .big-container .done-section {
+    width: 100%;
+}
+
+body .big-container .done-section .doneLabel{
+    display: flex;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    background-color: blue;
+}
+
+body .big-container .done-section .doneLabel p{
+    color: white;
+    text-transform: uppercase;
+    font-family: poppins;
+    font-weight: bold;
+    padding: 0.5vw 0.6vw;
+}
+
+
 
 
 
