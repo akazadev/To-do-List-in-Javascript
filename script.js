@@ -161,17 +161,10 @@ bigParent.addEventListener("click", (e) => {
 
     //on récupère le target du clic et on vérifie que c'est bien un boutton. Ensuite si ce boutton a un id qui se nomme add alors on appelle la fonction addNewElement
     if (targetButton.tagName === "BUTTON" && targetButton.id === "add") {
-        //récupérer l'input
-        // const inputText = targetButton.closest("#add").querySelector("input");
-        // const tag = prompt("Entrez une catégorie pour votre tâche");
-        // addNewElement(taskInput.value,tag);
-
         callAdd();
-        
     }
    
 });
-
 
 //Ici le code qui suit permet d'ajouter une tâche rien qu'en appuyant sur la touche entrée
 
@@ -208,13 +201,9 @@ const restoreFromLocalStorage = () => {
     }
     
 };
-
 // Appeler la fonction pour restaurer depuis le stockage local
-
 console.log(storedTask);
-
 //implémenter un fonction qui va permettre de rechercher par tag une tâche donnée
-
 function searchByTag(tag) {
     // Récupérer les tâches depuis le localStorage
     //On récupère les taches depuis le localStorage et on le stocke dans une variable locale qui se nomme tasks
