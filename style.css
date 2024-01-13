@@ -182,6 +182,11 @@ body .big-container .done-section .doneLabel p{
     padding: 0.5vw 0.6vw;
 }
 
+.hidden {
+    display: none;
+}
+
+
 
 
 

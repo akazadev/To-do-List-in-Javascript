@@ -92,8 +92,7 @@ function changeState (textInLabel){
     }
 }
 
-//retrouver une tache
-
+//retrouver une l'obet t^qche qui correspond au texte dans le label
 function findTask (textInLabel){
     for(let task of taskContainer){
        if (task.taskDescription === textInLabel){
@@ -102,12 +101,44 @@ function findTask (textInLabel){
     }
 }
 
-//prendre un objet en paramètre et styliser en fontion du fait que la tâche soit faite ou non
-
+//prendre un objet en paramètre et retourner son état
 function doneState (objet){
    return objet.done;
 }
 
+
+function searchByDescription(description) {
+    // Filtrer les tâches correspondantes
+    const matchingTasks = taskContainer.filter(task => task.taskDescription.includes(description));
+
+    // Parcourir toutes les tâches dans le DOM et appliquer le style en conséquence
+    for (let taskDiv of document.getElementsByClassName("todo-item")) {
+        const taskId = taskDiv.id;
+        const task = taskContainer.find(task => task.taskId === taskId);
+
+        if (matchingTasks.includes(task)) {
+            // Afficher les tâches correspondantes
+            taskDiv.style.display = "block"; // ou "inline" ou "flex", selon votre disposition
+        } else {
+            // Masquer les tâches non correspondantes
+            taskDiv.style.display = "none";
+        }
+    }
+}
+
+
+
+//réafhicher l'état initial
+function resetDisplay() {
+    for (let task of taskContainer) {
+        const taskDiv = document.getElementById("todoItem");
+        if (taskDiv.style.display === "none"){
+            taskDiv.style.display = "block";
+        }
+    }
+}
+
+//ajout d'un écouteur d'évènement à la div big parent pour réagir aux différents clics
 conteneur.addEventListener("click", (e) => {
     const targetButton = e.target;
 
@@ -122,7 +153,12 @@ conteneur.addEventListener("click", (e) => {
     }
 
     if (targetButton.tagName === "BUTTON" && targetButton.id === "search") {
-        //filterTasks();
+        var taskInput = document.getElementById('add-element');
+        var taskText = taskInput.value;
+        searchByDescription(taskText);
+        if (taskText.length === 0){
+            resetDisplay();
+        }
     }
 
     if (targetButton.tagName === "BUTTON" && targetButton.id === "done"){
@@ -133,17 +169,17 @@ conteneur.addEventListener("click", (e) => {
         let textInLabel = toDoElement.children[0].innerText;
 
         console.log(findTask(textInLabel))
-
+        
         if(doneState(findTask(textInLabel))){
+            task.style.textDecoration = "none";
+            task.style.color = "rgb(0, 0, 0)";
+            toDoElement.style.backgroundColor = "rgb(255,255,255)";
+            changeState(textInLabel);
+        } else {
             changeState(textInLabel);
             task.style.textDecoration = "line-through";
             task.style.color = "rgb(161, 161, 161)";
             toDoElement.style.backgroundColor = "rgb(179,255,181)";
-        } else {
-            changeState(textInLabel);
-            task.style.textDecoration = "none";
-            task.style.color = "rgb(0, 0, 0)";
-            toDoElement.style.backgroundColor = "rgb(255,255,255)";
         }
     }
     storeInLocalStorage();

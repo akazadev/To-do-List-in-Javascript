@@ -21,7 +21,7 @@ function callAdd() {
         const tag = prompt("Entrez une catégorie pour votre tâche");
         if (tag === null || tag === "") {
             alert("Veuillez entrer une catégorie");
-            return;
+            tag = prompt("Entrez une catégorie pour votre tâche");
         }
         addNewElement(taskText, tag);
         taskText = ""; 
@@ -34,7 +34,6 @@ function callAdd() {
 // Fonction pour créer un objet
 //cette fonction prends en paramètre la description du task et le tag qui lui est associé et crée un objet
 function createObject(taskDescription, taskTag) {
-    taskDescription = taskInput.value;
     return{
         taskDescription: taskDescription,
         tag: taskTag,
@@ -55,8 +54,8 @@ searchTagButton.addEventListener("click", ()=>{
 const deleteTodoItem = (toRemove) => {
     const parentSuppression = toRemove.parentNode;
     // Récupérer l'index de l'élément à supprimer
-    const taskIndex = Array.from(parentSuppression.children).indexOf(toRemove);
-    // Supprimer l'élément du tableau taskContainer
+    const taskIndex = Array.from(parentSuppression.children).indexOf(toRemove.innerText);
+    // // Supprimer l'élément du tableau taskContainer
     taskContainer.splice(taskIndex, 1);
     // Supprimer l'élément du DOM
     parentSuppression.removeChild(toRemove);
@@ -101,8 +100,8 @@ const addNewElement = (taskDescription, tag) => {
 
 
     //ici on crée une div doneTasks qui va récupérer les tâches
-    const doneTasks = document.createElement("div");
-    doneTasks.id = "doneTasks";
+    // const doneTasks = document.createElement("div");
+    // doneTasks.id = "doneTasks";
 
 
     // Ajout des boutons à la div checkDelete
@@ -187,8 +186,7 @@ const restoreFromLocalStorage = () => {
     if (saved) {
         taskContainer = JSON.parse(saved);
         bigParent.innerHTML = structure;
-    }
-    
+    } 
 };
 // Appeler la fonction pour restaurer depuis le stockage local
 console.log(storedTask);
