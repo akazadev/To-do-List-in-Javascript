@@ -154,8 +154,8 @@ conteneur.addEventListener("click", (e) => {
     if (targetButton.tagName === "BUTTON" && targetButton.id === "search") {
         var taskInput = document.getElementById('add-element');
         var taskText = taskInput.value;
-        console.log("cliked");
-        searchByDescription(taskText)
+        //console.log("cliked");
+        searchByDescription(taskText);
     }
 
     if (targetButton.tagName === "BUTTON" && targetButton.id === "done"){
