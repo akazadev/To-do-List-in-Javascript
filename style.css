@@ -8,7 +8,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 3vw;
+    padding-top: 6vw;
 }
 
 body .big-container{
@@ -49,7 +49,7 @@ body .big-container .add-new-element label{
 }
 
 body .big-container .add-new-element label #add{
-    background-color: rgba(255, 60, 60, 0.84);
+    background-color: #DC4C3E;
     border: none;
     padding: .5vw .8vw;
     cursor: pointer;
@@ -93,9 +93,6 @@ body .big-container .add-new-element #search{
     outline: none; /* Utilisez la couleur que vous préférez */
 }
 
-
-
-
 body .big-container .title p{
     text-transform: uppercase;
     font-family: 'poppins', 'Arial Narrow', Arial, sans-serif;
@@ -138,10 +135,13 @@ body .big-container .todo-item{
     /*background: url("./imgs/check.svg") no-repeat left top;*/
     margin-right: 0;
     border-radius: .3vw;
-    padding: .5vw .8vw;
+    padding: .5vw;
+    text-align: center;
     font-family: 'poppins', sans-serif;
-    font-weight: bold;
+    font-weight: 600;
     text-transform: uppercase;
+    background-color: #DC4C3E;
+    color: white;
 }
 
 body .big-container .todo-item .to-do-element{

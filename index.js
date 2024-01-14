@@ -165,18 +165,22 @@ conteneur.addEventListener("click", (e) => {
         const toDoElement = targetButton.closest("#toBedone");
         let textInLabel = toDoElement.children[0].innerText;
 
-        console.log(findTask(textInLabel))
+        //console.log(task)
         
         if(doneState(findTask(textInLabel))){
-            task.style.textDecoration = "none";
+            task.children[0].style.textDecoration = "none";
+            task.children[1].children[1].style.backgroundColor = "#DC4C3E";
+            task.children[1].children[1].style.color = "white";
             task.style.color = "rgb(0, 0, 0)";
             toDoElement.style.backgroundColor = "rgb(255,255,255)";
             changeState(textInLabel);
         } else {
             changeState(textInLabel);
-            task.style.textDecoration = "line-through";
+            task.children[0].style.textDecoration = "line-through";
+            task.children[1].children[1].style.backgroundColor = "rgba(27, 6, 184, 0.84)";
+            task.children[1].children[1].style.color = "white";
             task.style.color = "rgb(161, 161, 161)";
-            toDoElement.style.backgroundColor = "rgb(179,255,181)";
+            toDoElement.style.backgroundColor = "#e9ecf2";
         }
     }
     storeInLocalStorage();
