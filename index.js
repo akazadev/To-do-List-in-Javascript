@@ -19,7 +19,7 @@ const addItem = () => {
 
     if (taskText.length > 0) {
         addNewElement(taskText);
-        taskInput   .value = ""; 
+        taskInput.value = ""; 
     } else {
         alert("Veuillez saisir une tâche");
     }
@@ -106,35 +106,34 @@ function doneState (objet){
    return objet.done;
 }
 
-
+//fonction de filtre des tâches
 function searchByDescription(description) {
-    // Filtrer les tâches correspondantes
-    const matchingTasks = taskContainer.filter(task => task.taskDescription.includes(description));
+    var taskInput = document.getElementById('add-element');
+    var taskText = taskInput.value;
 
-    // Parcourir toutes les tâches dans le DOM et appliquer le style en conséquence
-    for (let taskDiv of document.getElementsByClassName("todo-item")) {
-        const taskId = taskDiv.id;
-        const task = taskContainer.find(task => task.taskId === taskId);
+    if(taskText.length > 0){
+        const theId = document.querySelectorAll("#toBedone")
+        for (let i = 0; i < theId.length; i++){
+      //  const taskP = taskDiv.children[0];
+            const pTag = theId[i].children[0];
+            const pTagContainer = pTag.closest("#todoItem");
 
-        if (matchingTasks.includes(task)) {
-            // Afficher les tâches correspondantes
-            taskDiv.style.display = "block"; // ou "inline" ou "flex", selon votre disposition
-        } else {
-            // Masquer les tâches non correspondantes
-            taskDiv.style.display = "none";
+            if (!pTag.innerHTML.includes(description)){
+                pTagContainer.style.display = "none";
+            }
         }
-    }
+    } else resetDisplay();
 }
 
 
-
-//réafhicher l'état initial
+//réafficher l'état initial
 function resetDisplay() {
-    for (let task of taskContainer) {
-        const taskDiv = document.getElementById("todoItem");
-        if (taskDiv.style.display === "none"){
-            taskDiv.style.display = "block";
-        }
+    const theId = document.querySelectorAll("#toBedone")
+    for (let i = 0; i < theId.length; i++){
+      //  const taskP = taskDiv.children[0];
+      const pTag = theId[i].children[0];
+      const pTagContainer = pTag.closest("#todoItem");
+      pTagContainer.style.display = "block";
     }
 }
 
@@ -155,10 +154,8 @@ conteneur.addEventListener("click", (e) => {
     if (targetButton.tagName === "BUTTON" && targetButton.id === "search") {
         var taskInput = document.getElementById('add-element');
         var taskText = taskInput.value;
-        searchByDescription(taskText);
-        if (taskText.length === 0){
-            resetDisplay();
-        }
+        console.log("cliked");
+        searchByDescription(taskText)
     }
 
     if (targetButton.tagName === "BUTTON" && targetButton.id === "done"){
@@ -184,6 +181,8 @@ conteneur.addEventListener("click", (e) => {
     }
     storeInLocalStorage();
 });
+
+
 
 //Enrégistrer dans le localstorage
 const storeInLocalStorage = () => {
